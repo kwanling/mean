@@ -3,6 +3,11 @@ var router = express.Router();
 var User = require('../models/user');
 
 router.get('/', function(req, res, next) {
+    res.render('index');
+});
+
+/*
+router.get('/', function(req, res, next) {
     //res.render('node', {name: req.params.name ? req.params.name : ''});
 
     var email = '';
@@ -18,7 +23,6 @@ router.get('/', function(req, res, next) {
 
 });
 
-
 router.post('/', function(req, res, next) {
     var email = req.body.email;
     var user = new User({
@@ -32,5 +36,6 @@ router.post('/', function(req, res, next) {
     //res.redirect('/' + emai);
     res.redirect('/');
 })
+*/
 
 module.exports = router;

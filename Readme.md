@@ -18,4 +18,7 @@
 - add models (Message and User)
 - npm install mongoose-unique-validator
   https://www.npmjs.com/package/mongoose-unique-validator
-  
+
+# change in angular2 (A)
+
+- 

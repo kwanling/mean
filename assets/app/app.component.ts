@@ -1,5 +1,6 @@
 import {Component} from 'angular2/core';
 import {MessageComponent} from './messages/message.component';
+import {Message} from './messages/message';
 
 @Component({
     selector: 'my-app',
@@ -11,15 +12,12 @@ import {MessageComponent} from './messages/message.component';
         </div>
         <div class="row">
             <section class="col-md-8 col-md-offset-2">
-                <my-message></my-message>
+                <my-message [message]="message" (editClicked)="message.content = $event"></my-message>
             </section>
         </div>
     `,
     directives: [MessageComponent]
 })
 export class AppComponent {
-    message = {
-        content: 'A message',
-        author: 'John Smith'
-    }
+    message: Message = new Message('A new message', null, 'John Smith');
 }

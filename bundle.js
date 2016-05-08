@@ -44,12 +44,24 @@ System.register("messages/message.component", ['angular2/core', "messages/messag
         execute: function() {
             MessageComponent = (function () {
                 function MessageComponent() {
-                    this.message = new message_1.Message('Ths content', null, 'John Smith');
+                    this.editClicked = new core_1.EventEmitter();
                 }
+                MessageComponent.prototype.onClick = function () {
+                    //this.message.content = "Changed";
+                    this.editClicked.emit("Changed");
+                };
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', message_1.Message)
+                ], MessageComponent.prototype, "message", void 0);
+                __decorate([
+                    core_1.Output(), 
+                    __metadata('design:type', Object)
+                ], MessageComponent.prototype, "editClicked", void 0);
                 MessageComponent = __decorate([
                     core_1.Component({
                         selector: 'my-message',
-                        template: "\n        <article class=\"panel panel-default\">\n            <div class=\"panel-body\">\n                {{ message.content }}\n            </div>\n            <footer class=\"panel-footer\">\n                <div class=\"author\">\n                    {{ message.username }}\n                </div>\n                <div class=\"config\">\n                    <a href=\"#\">Edit</a>\n                    <a href=\"#\">Delete</a>\n                </div>\n            </footer>        \n        </article>\n\n    ",
+                        template: "\n        <article class=\"panel panel-default\">\n            <div class=\"panel-body\">\n                {{ message.content }}\n            </div>\n            <footer class=\"panel-footer\">\n                <div class=\"author\">\n                    {{ message.username }}\n                </div>\n                <div class=\"config\">\n                    <a href=\"#\" (click)=\"onClick()\">Edit</a>\n                    <a href=\"#\">Delete</a>\n                </div>\n            </footer>        \n        </article>\n\n    ",
                         styles: ["\n        .author {\n            display: inline-block;\n            font-style: italic;\n            font-size: 12px;\n            width: 80%;\n        }\n        .config {\n            display: inline-block;\n            text-aligh: right;\n            font-size: 12px;\n            width: 19%;\n        }\n    "]
                     }), 
                     __metadata('design:paramtypes', [])
@@ -60,10 +72,10 @@ System.register("messages/message.component", ['angular2/core', "messages/messag
         }
     }
 });
-System.register("app.component", ['angular2/core', "messages/message.component"], function(exports_3, context_3) {
+System.register("app.component", ['angular2/core', "messages/message.component", "messages/message"], function(exports_3, context_3) {
     "use strict";
     var __moduleName = context_3 && context_3.id;
-    var core_2, message_component_1;
+    var core_2, message_component_1, message_2;
     var AppComponent;
     return {
         setters:[
@@ -72,19 +84,19 @@ System.register("app.component", ['angular2/core', "messages/message.component"]
             },
             function (message_component_1_1) {
                 message_component_1 = message_component_1_1;
+            },
+            function (message_2_1) {
+                message_2 = message_2_1;
             }],
         execute: function() {
             AppComponent = (function () {
                 function AppComponent() {
-                    this.message = {
-                        content: 'A message',
-                        author: 'John Smith'
-                    };
+                    this.message = new message_2.Message('A new message', null, 'John Smith');
                 }
                 AppComponent = __decorate([
                     core_2.Component({
                         selector: 'my-app',
-                        template: "  \n        <div class=\"row\">\n            <section class=\"col-md-8 col-md-offset-2\">\n                <input type=\"text\" [(ngModel)]=\"message.content\">\n            </section>\n        </div>\n        <div class=\"row\">\n            <section class=\"col-md-8 col-md-offset-2\">\n                <my-message></my-message>\n            </section>\n        </div>\n    ",
+                        template: "  \n        <div class=\"row\">\n            <section class=\"col-md-8 col-md-offset-2\">\n                <input type=\"text\" [(ngModel)]=\"message.content\">\n            </section>\n        </div>\n        <div class=\"row\">\n            <section class=\"col-md-8 col-md-offset-2\">\n                <my-message [message]=\"message\" (editClicked)=\"message.content = $event\"></my-message>\n            </section>\n        </div>\n    ",
                         directives: [message_component_1.MessageComponent]
                     }), 
                     __metadata('design:paramtypes', [])

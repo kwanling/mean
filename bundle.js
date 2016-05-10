@@ -72,11 +72,11 @@ System.register("messages/message.component", ['angular2/core', "messages/messag
         }
     }
 });
-System.register("app.component", ['angular2/core', "messages/message.component", "messages/message"], function(exports_3, context_3) {
+System.register("messages/message-list.component", ['angular2/core', "messages/message.component", "messages/message"], function(exports_3, context_3) {
     "use strict";
     var __moduleName = context_3 && context_3.id;
     var core_2, message_component_1, message_2;
-    var AppComponent;
+    var MessageListComponent;
     return {
         setters:[
             function (core_2_1) {
@@ -89,30 +89,98 @@ System.register("app.component", ['angular2/core', "messages/message.component",
                 message_2 = message_2_1;
             }],
         execute: function() {
-            AppComponent = (function () {
-                function AppComponent() {
+            MessageListComponent = (function () {
+                function MessageListComponent() {
                     this.messages = [
                         new message_2.Message('A new message', null, 'John Smith'),
                         new message_2.Message('Another message', null, 'Mary Smith')
                     ];
                 }
-                AppComponent = __decorate([
+                MessageListComponent = __decorate([
                     core_2.Component({
-                        selector: 'my-app',
-                        template: "  \n        <div class=\"row\">\n            <section class=\"col-md-8 col-md-offset-2\">\n                <my-message *ngFor=\"#message of messages\" \n                    [message]=\"message\" (editClicked)=\"message.content = $event\"></my-message>\n            </section>\n        </div>\n    ",
+                        selector: 'my-message-list',
+                        template: "\n        <section class=\"col-md-8 col-md-offset-2\">\n            <my-message *ngFor=\"#message of messages\" \n                [message]=\"message\" (editClicked)=\"message.content = $event\"></my-message>\n        </section>\n    ",
                         directives: [message_component_1.MessageComponent]
+                    }), 
+                    __metadata('design:paramtypes', [])
+                ], MessageListComponent);
+                return MessageListComponent;
+            }());
+            exports_3("MessageListComponent", MessageListComponent);
+        }
+    }
+});
+System.register("messages/message-input.component", ['angular2/core', "messages/message"], function(exports_4, context_4) {
+    "use strict";
+    var __moduleName = context_4 && context_4.id;
+    var core_3, message_3;
+    var MessageInputComponent;
+    return {
+        setters:[
+            function (core_3_1) {
+                core_3 = core_3_1;
+            },
+            function (message_3_1) {
+                message_3 = message_3_1;
+            }],
+        execute: function() {
+            MessageInputComponent = (function () {
+                function MessageInputComponent() {
+                }
+                MessageInputComponent.prototype.onCreate = function (content) {
+                    var message = new message_3.Message(content, null, 'John Smith');
+                    console.log(message);
+                };
+                MessageInputComponent = __decorate([
+                    core_3.Component({
+                        selector: 'my-message-input',
+                        template: "\n        <section class=\"col-md-8 col-md-offset-2\">\n            <div class=\"form-group\">\n                <label for=\"content\">Content</label>\n                <input type=\"text\" name=\"content\" id=\"content\" class=\"form-control\" #input>\n            </div>\n            <button type=\"submit\" \n                class=\"btn btn-primary\"\n                (click)=\"onCreate(input.value)\"\n                >Send Message</button>\n        </section>\n    "
+                    }), 
+                    __metadata('design:paramtypes', [])
+                ], MessageInputComponent);
+                return MessageInputComponent;
+            }());
+            exports_4("MessageInputComponent", MessageInputComponent);
+        }
+    }
+});
+System.register("app.component", ['angular2/core', "messages/message-list.component", "messages/message-input.component"], function(exports_5, context_5) {
+    "use strict";
+    var __moduleName = context_5 && context_5.id;
+    var core_4, message_list_component_1, message_input_component_1;
+    var AppComponent;
+    return {
+        setters:[
+            function (core_4_1) {
+                core_4 = core_4_1;
+            },
+            function (message_list_component_1_1) {
+                message_list_component_1 = message_list_component_1_1;
+            },
+            function (message_input_component_1_1) {
+                message_input_component_1 = message_input_component_1_1;
+            }],
+        execute: function() {
+            AppComponent = (function () {
+                function AppComponent() {
+                }
+                AppComponent = __decorate([
+                    core_4.Component({
+                        selector: 'my-app',
+                        template: "  \n        <div class=\"row\" class=\"spacing\">\n            <my-message-input></my-message-input>\n        </div>\n        <div class=\"row\">\n            <my-message-list></my-message-list>\n        </div>\n    ",
+                        directives: [message_input_component_1.MessageInputComponent, message_list_component_1.MessageListComponent]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);
                 return AppComponent;
             }());
-            exports_3("AppComponent", AppComponent);
+            exports_5("AppComponent", AppComponent);
         }
     }
 });
-System.register("boot", ['angular2/platform/browser', "app.component"], function(exports_4, context_4) {
+System.register("boot", ['angular2/platform/browser', "app.component"], function(exports_6, context_6) {
     "use strict";
-    var __moduleName = context_4 && context_4.id;
+    var __moduleName = context_6 && context_6.id;
     var browser_1, app_component_1;
     return {
         setters:[
@@ -127,9 +195,9 @@ System.register("boot", ['angular2/platform/browser', "app.component"], function
         }
     }
 });
-System.register("auth/user", [], function(exports_5, context_5) {
+System.register("auth/user", [], function(exports_7, context_7) {
     "use strict";
-    var __moduleName = context_5 && context_5.id;
+    var __moduleName = context_7 && context_7.id;
     var User;
     return {
         setters:[],
@@ -143,7 +211,7 @@ System.register("auth/user", [], function(exports_5, context_5) {
                 }
                 return User;
             }());
-            exports_5("User", User);
+            exports_7("User", User);
         }
     }
 });

@@ -21,4 +21,7 @@
 
 # change in angular2 (A)
 
-- 
+- organize assets folder
+- component
+- property binding
+- event binding
